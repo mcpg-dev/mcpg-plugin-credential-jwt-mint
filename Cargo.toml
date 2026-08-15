@@ -1,0 +1,34 @@
+[package]
+name = "mcpg-plugin-credential-jwt-mint"
+version = "0.1.0-alpha.16"
+license = "Apache-2.0"
+edition = "2024"
+description = "JWT-minting credential_issuer plugin for MCPG (dev.mcpg.credential.jwt-mint)"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.13", version = "=0.1.0-beta.13" }
+mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.13", version = "=0.1.0-beta.13" }
+async-trait = "0.1"
+# Pure-Rust JWT. aws_lc_rs is the rustls-clean crypto backend (NO openssl /
+# native-tls); use_pem enables the PEM key loaders. This is the exact pin
+# identity/workload already uses, so it adds no new lock entry.
+jsonwebtoken = { version = "10.4", default-features = false, features = ["aws_lc_rs", "use_pem"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
+time = { version = "0.3", features = ["formatting", "macros"] }
+uuid = { version = "1", features = ["v7"] }
+tracing = "0.1"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt"] }
+
+[features]
+default = ["cdylib-export"]
+cdylib-export = []
+# Declared so the SDK's static-firstparty fast path does not trip
+# `unexpected_cfgs`. Empty: this plugin is consumed as a cdylib.
+static-firstparty = []

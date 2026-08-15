@@ -1,0 +1,20 @@
+schema: mcpg.dev/plugin/v1
+id: dev.mcpg.credential.jwt-mint
+name: JWT Minting Credential Issuer
+license: Apache-2.0
+description: |
+  Config-driven credential_issuer that mints a freshly-signed JWT per request
+  to assert the caller's identity to a downstream service. Operators declare
+  per-target minting profiles (algorithm, signing key, issuer, audience, TTL,
+  static + identity-mapped claims) keyed on the `cred://` target string.
+  Supports HS256 / RS256 / EdDSA. Signing keys are parsed once at boot; each
+  call is pure CPU crypto with no outbound network. Per-target identity
+  authorization (any / roles / groups / subjects) gates who may mint a token,
+  with the same Verified-trust floor as the static issuer so a spoofable
+  header-asserted identity can never satisfy an allowlist. Minted tokens are
+  stateless (no lease / no revocation), like STS. Fails closed on bad config or
+  an unloadable signing key.
+class: credential_issuer
+runtime: native-cdylib-v1
+protocol_version: "1.0"
+required_capabilities: []
