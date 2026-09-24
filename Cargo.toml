@@ -1,6 +1,6 @@
 [package]
 name = "mcpg-plugin-credential-jwt-mint"
-version = "0.1.0-alpha.32"
+version = "0.1.0-alpha.38"
 license = "Apache-2.0"
 edition = "2024"
 description = "JWT-minting credential_issuer plugin for MCPG (dev.mcpg.credential.jwt-mint)"
@@ -9,13 +9,13 @@ description = "JWT-minting credential_issuer plugin for MCPG (dev.mcpg.credentia
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.29", version = "=0.1.0-beta.29" }
-mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.30", version = "=0.1.0-beta.30" }
+mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.35", version = "=0.1.0-beta.35" }
+mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.36", version = "=0.1.0-beta.36" }
 async-trait = "0.1"
 # Pure-Rust JWT. aws_lc_rs is the rustls-clean crypto backend (NO openssl /
 # native-tls); use_pem enables the PEM key loaders. This is the exact pin
 # identity/workload already uses, so it adds no new lock entry.
-jsonwebtoken = { version = "10.4", default-features = false, features = ["aws_lc_rs", "use_pem"] }
+jsonwebtoken = { version = "11.1", default-features = false, features = ["aws_lc_rs", "use_pem"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 thiserror = "2.0"
